@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Personal Portfolio Website">
+  <title>My Portfolio</title>
+  <style>
+    :root {
+      --bg-dark: #181818;
+      --card-dark: #222;
+      --text-light: #f5f5f5;
+      --accent: #00ffe7;
+      --accent-gradient: linear-gradient(45deg, #00ffe7, #ff4c60);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-light);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(24, 24, 24, 0.95);
+      color: white;
+      z-index: 1000;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    section {
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    min-height: 80vh;
+    gap: 2rem;
+    flex-wrap: wrap;
+    }
+
+    .hero img {
+      width: 280px;  /* slightly bigger for rectangle */
+      height: 350px;
+      border-radius: 15px; /* small rounded corners */
+      object-fit: cover;
+      border: 4px solid var(--accent);
+      box-shadow: 0 0 25px rgba(0, 255, 231, 1),
+                  0 0 50px rgba(0, 255, 231, 0.8),
+                  0 0 75px rgba(255, 76, 96, 0.9);
+      animation: strong-glow 2s infinite alternate;
+    }
+
+    @keyframes strong-glow {
+      from {
+        box-shadow: 
+          0 0 25px rgba(0, 255, 231, 1),
+          0 0 50px rgba(0, 255, 231, 0.8),
+          0 0 75px rgba(255, 76, 96, 0.9);
+      }
+      to {
+        box-shadow: 
+          0 0 35px rgba(255, 76, 96, 1),
+          0 0 70px rgba(255, 76, 96, 0.9),
+          0 0 100px rgba(0, 255, 231, 1);
+      }
+    }
+
+
+    .hero-text {
+    max-width: 600px;
+    }
+
+
+    .typing, .designation {
+      font-size: 2.5rem;
+      font-weight: bold;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      border-right: 2px solid var(--accent);
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+    }
+
+    .typing {
+      animation: typing 3s steps(30) forwards, blink 0.7s infinite;
+    }
+
+    .designation {
+      font-size: 1.5rem;
+      margin-top: 1rem;
+      animation: typing 3s steps(30) forwards;
+      animation-delay: 3.2s;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent }
+    }
+
+    .projects, .skills {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--card-dark);
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.9);
+    }
+
+    .skills .bar {
+      margin: 1rem 0;
+    }
+
+    .skills .bar span {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .skills .progress {
+      background: #2a2a2a;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .skills .progress div {
+      height: 15px;
+      background: var(--accent-gradient);
+      width: 0;
+      transition: width 1.5s ease-in-out;
+    }
+
+    .contact form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    input, textarea {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    button {
+      background: var(--accent-gradient);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      opacity: 0.85;
+    }
+
+    .social-links a {
+      margin: 0 10px;
+      font-size: 1.5rem;
+      color: var(--accent);
+      transition: 0.3s;
+    }
+
+    .social-links a:hover {
+      color: #ff4c60;
+    }
+    .social-links a {
+      margin: 0 10px;
+      font-size: 2rem; /* Bigger icons */
+      color: var(--accent);
+      transition: 0.3s;
+    }
+
+    .social-links a:hover {
+      color: #ff4c60;
+      text-shadow: 0 0 10px #00ffe7, 0 0 20px #ff4c60;
+    }
+
+    /* Animated background */
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(0,255,231,0.1), transparent 70%),
+                  radial-gradient(circle at 80% 20%, rgba(255,76,96,0.1), transparent 70%),
+                  #181818;
+      animation: bgmove 15s infinite alternate;
+    }
+
+    @keyframes bgmove {
+      from { background-position: 0 0, 100% 0, 0 0; }
+      to { background-position: 100% 100%, 0 100%, 50% 50%; }
+    }
+    .quick-facts {
+      margin-top: 2rem;
+      background: rgba(34, 34, 34, 0.8);
+      border: 2px solid transparent;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 0 15px rgba(0, 255, 231, 0.3);
+      background-clip: padding-box;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .quick-facts:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 25px rgba(0, 255, 231, 0.6);
+    }
+
+    .quick-facts h3 {
+      margin-bottom: 1rem;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 1.5rem;
+    }
+
+    .quick-facts ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .quick-facts li {
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      border-left: 3px solid var(--accent);
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+
+    .quick-facts li:hover {
+      background: rgba(0, 255, 231, 0.1);
+      border-left: 3px solid #ff4c60;
+      box-shadow: 0 0 10px rgba(0, 255, 231, 0.4);
+    }
+    /* Projects Section */
+      .projects {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      .project-card {
+        position: relative;
+        overflow: hidden;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.7);
+        cursor: pointer;
+      }
+
+      .project-card img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.4s ease;
+      }
+
+      .project-card:hover img {
+        transform: scale(1.1);
+      }
+
+      .project-card .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(24, 24, 24, 0.9);
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 1rem;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+
+      .project-card:hover .overlay {
+        opacity: 1;
+      }
+
+      .project-card .overlay h3 {
+        margin-bottom: 0.5rem;
+        background: var(--accent-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .project-card .overlay p {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+        color: #ddd;
+      }
+
+      .project-card .overlay a {
+        background: var(--accent-gradient);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+
+      .project-card .overlay a:hover {
+        opacity: 0.85;
+      }
+      /* Skills Section Animation */
+    .skills .progress {
+      background: #2a2a2a;
+      border-radius: 20px;
+      overflow: hidden;
+      height: 18px;
+      box-shadow: inset 0 0 8px rgba(0,0,0,0.7);
+    }
+
+    .skills .progress div {
+      height: 100%;
+      background: var(--accent-gradient);
+      width: 0; /* Start empty */
+      transition: width 2s ease-in-out;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0,255,231,0.7), 0 0 15px rgba(255,76,96,0.6);
+    }
+
+    /* Animate when visible */
+    .skills .bar[data-skill="Python"] .progress div { width: 90%; }
+    .skills .bar[data-skill="Java"] .progress div { width: 70%; }
+    .skills .bar[data-skill="MySQL"] .progress div { width: 80%; }
+    .skills .bar[data-skill="Flask"] .progress div { width: 60%; }
+
+    /* Skill Labels */
+    .skills .bar span {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+      margin-bottom: 6px;
+      color: var(--text-light);
+    }
+
+    .skills .bar span::after {
+      content: attr(data-percent);
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+
+      </style>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </head>
+    <body>
+      <div class="background"></div>
+
+      <header>
+        <h2>My Portfolio</h2>
+        <nav>
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
+          <a href="#skills">Skills</a>
+          <a href="#resume">Resume</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <img src="./my photo1.jpg" alt="Your Photo">
+        <div class="hero-text">
+            <h1 class="typing">Hi, I'm Kiruthika R</h1>
+            <p class="subtitle">Full Stack Web Developer | Frontend Developer | Software Engineer</p>
+            <div class="social-links">
+              <!-- GitHub -->
+              <a href="https://github.com/kiruthika-2121" target="_blank" title="GitHub">
+                <i class="fab fa-github"></i>
+              </a>
+
+              <!-- LinkedIn -->
+              <a href="https://www.linkedin.com/in/kiruthika-radhakrishnan/" target="_blank" title="LinkedIn">
+                <i class="fab fa-linkedin"></i>
+              </a>
+
+              <!-- Instagram -->
+              <a href="https://www.instagram.com/YOUR-INSTAGRAM-USERNAME" target="_blank" title="Instagram">
+                <i class="fab fa-instagram"></i>
+              </a>
+            </div>
+        </div>
+        </section>
+
+      <section id="about">
+      <h2>About Me</h2>
+      <p>
+        I am a passionate and dedicated <strong>Computer Science undergraduate</strong>, currently pursuing my 
+        <strong>B.E. at Mahendra Engineering College, Amakkal</strong>. Hailing from <strong>Salem</strong>, 
+        I aspire to build a successful career as a <strong>Full-Stack Developer</strong>.
+      </p>
+      <p>
+        With hands-on experience in both <strong>front-end</strong> and <strong>back-end technologies</strong>, 
+        I enjoy creating complete, user-friendly applications that deliver real-world value. 
+        I am constantly exploring new tools, frameworks, and methodologies to strengthen my skills 
+        and contribute to impactful, end-to-end software solutions.
+      </p>
+
+      <!-- Quick Facts Section -->
+      <div class="quick-facts">
+        <h3>Quick Facts</h3>
+        <ul>
+          <li>🎓 <strong>Education:</strong> B.E. in Computer Science, Mahendra Engineering College</li>
+          <li>📍 <strong>Location:</strong> Salem, Tamil Nadu</li>
+          <li>💻 <strong>Interests:</strong> Full-Stack Development, Problem Solving, Modern Web Apps</li>
+          <li>🚀 <strong>Goal:</strong> To grow into a skilled Full-Stack Developer building impactful software solutions</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="projects">
+  <h2>Projects</h2>
+  <div class="projects">
+    <!-- Project 1 -->
+    <div class="project-card">
+      <img src="./resume_ranking.png" alt="Project 1">
+      <div class="overlay">
+        <h3>Resume Ranking System with AI Mock Interviews</h3>
+        <p>A smart web application that analyzes, ranks, and enhances resumes while providing personalized interview preparation using AI-driven insights.</p>
+        <a href="https://github.com/kiruthika-2121/" target="_blank">View Project</a>
+      </div>
+    </div>
+
+    <!-- Project 2 -->
+    <div class="project-card">
+      <img src="./hotel_management.png" alt="Project 2">
+      <div class="overlay">
+        <h3>Hotel Management System</h3>
+        <p>The Hotel Management System is a web-based application designed to streamline hotel operations and provide a seamless experience for both hotel staff and customers. Built using HTML, CSS, Python (Flask), and MySQL.</p>
+        <a href="https://github.com/kiruthika-2121/hotel-management-system" target="_blank">View Project</a>
+      </div>
+    </div>
+
+    <!-- Project 3 -->
+    <div class="project-card">
+      <img src="./oline_furniture.png" alt="Project 3">
+      <div class="overlay">
+        <h3>Online Furniture Shop</h3>
+        <p>An Online Furniture Purchase System using Python that lets users browse furniture, view images, and check price and stock from a database.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+  <h2>Skills</h2>
+  <div class="skills">
+    <div class="bar" data-skill="Python">
+      <span data-percent="90%">Python</span>
+      <div class="progress"><div></div></div>
+    </div>
+    <div class="bar" data-skill="Java">
+      <span data-percent="70%">Java</span>
+      <div class="progress"><div></div></div>
+    </div>
+    <div class="bar" data-skill="MySQL">
+      <span data-percent="80%">MySQL</span>
+      <div class="progress"><div></div></div>
+    </div>
+    <div class="bar" data-skill="Flask">
+      <span data-percent="60%">Flask</span>
+      <div class="progress"><div></div></div>
+    </div>
+  </div>
+</section>
+
+
+
+  <section id="resume">
+  <h2>Resume</h2>
+  <p>Here’s my resume for a detailed overview of my skills, education, and projects. You can download it using the link below.</p>
+  <a href="resume.pdf" download><button>Download Resume</button></a>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2>Contact Me</h2>
+    <p>👉 Replace this text with your contact details (or just leave the form).</p>
+    <form id="contactForm" action="https://formspree.io/f/xwpqgzrq" method="POST">
+      <input type="text" id="name" name="name" placeholder="Your Name" required>
+      <input type="email" id="email" name="email" placeholder="Your Email" required>
+      <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </section>
+
+  <footer style="text-align:center; padding:1rem; background:#222; color:white;">
+    <p>© 2025 Your Name. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    // Animate skill bars on scroll
+    const skillBars = document.querySelectorAll('.progress div');
+    window.addEventListener('scroll', () => {
+      skillBars.forEach(bar => {
+        const rect = bar.getBoundingClientRect();
+        if (rect.top < window.innerHeight) {
+          bar.style.width = bar.getAttribute('style').match(/width: (.*?);?/)[1];
+        }
+      });
+    });
+
+    // Contact Form Validation
+    const form = document.getElementById('contactForm');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (!name || !email || !message) {
+        alert('Please fill out all fields.');
+        return;
+      }
+
+      if (!/^[^@]+@[^@]+\.[^@]+$/.test(email)) {
+        alert('Please enter a valid email.');
+        return;
+      }
+
+      try {
+        const formData = new FormData(form);
+
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          alert('✅ Message sent successfully!');
+          form.reset();
+        } else {
+          alert('❌ Failed to send. Try again later.');
+        }
+      } catch (err) {
+        alert('⚠️ Something went wrong.');
+      }
+    });
+
+  </script>
+</body>
+</html>
